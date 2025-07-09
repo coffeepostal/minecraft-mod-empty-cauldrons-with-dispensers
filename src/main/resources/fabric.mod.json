@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "empty-cauldrons-with-dispensers",
+  "version": "1.0.0",
+  "name": "Empty Cauldrons with Dispensers",
+  "description": "Allows dispensers to empty water, lava, or powder snow cauldrons into buckets, dropping the filled bucket into the cauldron space for hoppers or players to collect.",
+  "authors": [
+    "Adam Farnsworth"
+  ],
+  "contact": {
+    "homepage": "https://modrinth.com/user/coffeepostal",
+    "sources": "https://github.com/yourname/empty-cauldrons-with-dispensers"
+  },
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "co.farns.bucketsfromcauldrons.AutofillBucketsFromCauldrons"
+    ]
+  },
+  "depends": {
+    "fabricloader": ">=0.15.0",
+    "fabric": "*",
+    "minecraft": "1.21.5",
+    "java": ">=21"
+  }
+}
