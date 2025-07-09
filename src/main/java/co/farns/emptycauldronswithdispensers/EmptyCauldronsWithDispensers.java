@@ -20,7 +20,10 @@ public class EmptyCauldronsWithDispensers implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		LOGGER.info("Buckets from cauldrons mod initializing!");
+		LOGGER.info("Empty Cauldrons with Dispensers mod initializing!");
+
+		// Save the original vanilla bucket behavior
+		var vanillaBucketBehavior = DispenserBlock.BEHAVIORS.get(Items.BUCKET);
 
 		// Register custom behavior for empty buckets in dispensers
 		DispenserBlock.registerBehavior(Items.BUCKET, (pointer, stack) -> {
@@ -31,7 +34,8 @@ public class EmptyCauldronsWithDispensers implements ModInitializer {
 			Block targetBlock = targetState.getBlock();
 
 			// Check if the block in front is a full cauldron (lava, water, or powder snow)
-			if (targetBlock == Blocks.LAVA_CAULDRON || targetBlock == Blocks.WATER_CAULDRON || targetBlock == Blocks.POWDER_SNOW_CAULDRON) {
+			if (targetBlock == Blocks.LAVA_CAULDRON || targetBlock == Blocks.WATER_CAULDRON
+					|| targetBlock == Blocks.POWDER_SNOW_CAULDRON) {
 				// Decide which filled bucket to give
 				ItemStack filledBucket;
 				if (targetBlock == Blocks.LAVA_CAULDRON) {
@@ -47,12 +51,11 @@ public class EmptyCauldronsWithDispensers implements ModInitializer {
 
 				// Drop the filled bucket item centered in the cauldron block
 				ItemScatterer.spawn(
-					world,
-					targetPos.getX() + 0.5,
-					targetPos.getY() + 0.5,
-					targetPos.getZ() + 0.5,
-					filledBucket
-				);
+						world,
+						targetPos.getX() + 0.5,
+						targetPos.getY() + 0.5,
+						targetPos.getZ() + 0.5,
+						filledBucket);
 
 				// Consume one empty bucket from dispenser
 				stack.decrement(1);
@@ -62,7 +65,7 @@ public class EmptyCauldronsWithDispensers implements ModInitializer {
 			}
 
 			// Not a cauldron → fallback to vanilla dispenser behavior
-			return DispenserBlock.BEHAVIORS.get(Items.BUCKET).dispense(pointer, stack);
+			return vanillaBucketBehavior.dispense(pointer, stack);
 		});
 	}
 }
